@@ -1,0 +1,103 @@
+name: Publisher application
+description: Apply for a publisher key for a product that sends claims in bulk.
+title: "Publisher application: "
+labels: ["publisher"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        No publisher key, trial or active, is issued while fewer than three Stewards are seated, and the bulk API arrives in phase 2. You can apply now; we will pick it up when keys open. See the Publishers section of CONTRIBUTING.md.
+
+        The formal application is a pull request adding `publishers/{pub_id}.json`, followed by 14 days of public review. This issue starts that conversation. Everything here is public. Questions first? Write to publishers@summonerdex.gg (planned).
+  - type: input
+    id: product
+    attributes:
+      label: Product name and URL
+    validations:
+      required: true
+  - type: input
+    id: operator
+    attributes:
+      label: Operator
+      description: Who runs the product, and the named person who would accept the Publisher Agreement.
+    validations:
+      required: true
+  - type: input
+    id: contact
+    attributes:
+      label: Public contact for the publisher page
+      description: A role address, not a personal one.
+    validations:
+      required: true
+  - type: dropdown
+    id: riot_key
+    attributes:
+      label: Does the product hold its own Riot production key?
+      options:
+        - "Yes"
+        - "No"
+        - Application pending
+    validations:
+      required: true
+  - type: checkboxes
+    id: predicates
+    attributes:
+      label: What would you send?
+      options:
+        - label: Riot accounts tied to personas
+        - label: API-observed Riot ID renames
+        - label: Social links
+        - label: Team or league affiliations
+  - type: textarea
+    id: method
+    attributes:
+      label: Method
+      description: How you collect each kind of claim and what evidence you keep. Link a method document if you have one.
+    validations:
+      required: true
+  - type: input
+    id: ingest_code
+    attributes:
+      label: Open-source ingest code
+      description: Link to the code that builds your batches.
+    validations:
+      required: true
+  - type: textarea
+    id: derived_from
+    attributes:
+      label: Where your data comes from
+      description: Every source your claims are derived from, including other publishers or wikis.
+    validations:
+      required: true
+  - type: input
+    id: rate
+    attributes:
+      label: Expected volume
+      description: Lines per day. Active keys start at 5,000 a day.
+    validations:
+      required: true
+  - type: textarea
+    id: rollback
+    attributes:
+      label: Rollback plan
+      description: How you find and withdraw bad lines.
+    validations:
+      required: true
+  - type: textarea
+    id: conflicts
+    attributes:
+      label: Conflicts
+      description: Any tie to a Steward, Reviewer, team, league or other publisher.
+    validations:
+      required: true
+  - type: checkboxes
+    id: commitments
+    attributes:
+      label: Commitments
+      options:
+        - label: We will never send PUUIDs or raw Riot API data. Any subject_ref is only the keyed HMAC described in the architecture.
+          required: true
+        - label: We will apply the compliance feed within 24 hours and show the attribution string.
+          required: true
+        - label: We agree our contribution may be used under the Contributor Terms 1.0 once published (to be written), and will accept the Publisher Agreement, including sampling.
+          required: true

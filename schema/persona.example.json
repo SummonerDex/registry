@@ -1,0 +1,126 @@
+{
+  "persona_id": "per_01MBJH79M071HFE865V215DE1C",
+  "slug": "example-mid-7q2k",
+  "display_name": "ExampleMid",
+  "status": "listed",
+  "games": [
+    "lol"
+  ],
+  "owner_verified": {
+    "tier": "E4",
+    "since": "2027-03-10T18:20:00Z",
+    "reverify_due": "2028-03-10"
+  },
+  "facets": [
+    {
+      "facet": "pro",
+      "rubric": "pro@1",
+      "value": true,
+      "league": "LEC",
+      "team": "Example Esports",
+      "role_class": "player",
+      "valid_until": "2027-11-15",
+      "basis_claims": [
+        "clm_01MBJH7CHR0GB6KC9QA0MZ17QK"
+      ],
+      "computed_at": "2027-03-15T06:00:00Z"
+    },
+    {
+      "facet": "streamer_declared",
+      "rubric": "streamer_declared@1",
+      "value": true,
+      "valid_until": "2028-02-04",
+      "basis_claims": [
+        "clm_01ME0MWXK0RBKS0KJDVMXWWDYA",
+        "clm_01MBJH7DH0F3F55Z488YAGVDCK"
+      ],
+      "computed_at": "2027-03-15T06:00:00Z"
+    }
+  ],
+  "accounts": [
+    {
+      "account_id": "acc_01MBJH7AK8E6RHXQAQPDH4AFAX",
+      "primary": true,
+      "current": {
+        "game_name": "Example Mid",
+        "tag_line": "EUW",
+        "name_key": "examplemid#euw",
+        "region": "euw1"
+      },
+      "names": [
+        {
+          "game_name": "Example Mid",
+          "tag_line": "EUW",
+          "name_key": "examplemid#euw",
+          "from": "2027-01-04T14:03:00Z",
+          "to": null,
+          "evidence_tier": "E4",
+          "disclosure_basis": "owner_verified",
+          "review_status": "approved",
+          "publishers": [
+            "pub_01MAX9T4Q0V7N2C8RJ5WZB3KHE"
+          ],
+          "claim_ids": [
+            "clm_01MBJH7BJGRHEM3E2MSH4DMDZS"
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "region": "euw1",
+          "from": "2027-01-04T14:03:00Z",
+          "to": null,
+          "publishers": [
+            "pub_01MAX9T4Q0V7N2C8RJ5WZB3KHE"
+          ]
+        }
+      ],
+      "last_confirmed": "2027-03-10T18:20:00Z",
+      "freshness": "fresh",
+      "corroboration": 1
+    }
+  ],
+  "socials": [
+    {
+      "platform": "twitch",
+      "url": "https://www.twitch.tv/examplemid",
+      "evidence_tier": "E3",
+      "disclosure_basis": "league_published",
+      "review_status": "approved",
+      "publishers": [
+        "pub_01MAX9T4Q0V7N2C8RJ5WZB3KHE"
+      ],
+      "last_confirmed": "2027-02-04T17:00:00Z",
+      "claim_id": "clm_01MBJH7DH0F3F55Z488YAGVDCK"
+    }
+  ],
+  "affiliations": [
+    {
+      "team": "Example Esports",
+      "league": "LEC",
+      "role_class": "player",
+      "valid_from": "2027-01-01",
+      "valid_to": null,
+      "evidence_tier": "E1",
+      "disclosure_basis": "league_published",
+      "review_status": "approved",
+      "publishers": [
+        "pub_01MAX9T4Q0V7N2C8RJ5WZB3KHE"
+      ],
+      "last_confirmed": "2027-01-05T09:00:03Z",
+      "claim_id": "clm_01MBJH7CHR0GB6KC9QA0MZ17QK"
+    }
+  ],
+  "external_ids": {
+    "leaguepedia": "ExampleMid",
+    "liquipedia": "ExampleMid"
+  },
+  "redirected_from": [],
+  "policy": "registry-default@1",
+  "seq": 6102,
+  "attribution": {
+    "text": "SummonerDex contributors, CC BY 4.0, https://summonerdex.gg/attribution",
+    "license": "CC-BY-4.0",
+    "terms": "https://summonerdex.gg/terms/access-1.0"
+  }
+}

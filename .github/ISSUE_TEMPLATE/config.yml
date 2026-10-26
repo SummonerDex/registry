@@ -1,0 +1,17 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Persona or account claims
+    url: https://github.com/summonerdex
+    about: Claims and persona proposals are not taken as issues, because issues are public before review. Intake opens at launch through the web form and the Discord bot; see CONTRIBUTING.md. Org planned.
+  - name: Privacy, hide or remove
+    url: mailto:privacy@summonerdex.gg
+    about: Ask to hide an account, delist a persona, remove personal information or erase data. Email keeps your request private; please do not open a public issue. Mailbox planned.
+  - name: Security problem
+    url: mailto:security@summonerdex.gg
+    about: Report a vulnerability privately. Please do not open a public issue. Mailbox planned.
+  - name: Abuse or conduct
+    url: mailto:abuse@summonerdex.gg
+    about: Report abuse, griefing or a code of conduct problem. Mailbox planned.
+  - name: Publisher questions
+    url: mailto:publishers@summonerdex.gg
+    about: Questions about becoming a publisher before you apply. Mailbox planned.

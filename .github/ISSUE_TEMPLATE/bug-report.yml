@@ -1,0 +1,50 @@
+name: Bug report
+description: Something in the software is broken. Not for data about personas.
+title: "Bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For the software only. A wrong or missing claim about a persona goes through the submission form or Discord bot once intake opens, never a GitHub issue; a hide or removal goes to privacy@summonerdex.gg (planned); a security problem goes to security@summonerdex.gg (planned).
+
+        Never paste an API key, and leave out any personal data.
+  - type: dropdown
+    id: component
+    attributes:
+      label: Where
+      options:
+        - API
+        - Static persona JSON
+        - Dumps or feeds
+        - Site
+        - Discord bot
+        - idfold package (npm or PyPI)
+        - Resolver
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to reproduce
+      description: Request, command or steps. Remove keys and personal data.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Package version, API version or date and time of the request.

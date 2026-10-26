@@ -1,0 +1,644 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://summonerdex.gg/schema/persona-1.0.json",
+  "title": "SummonerDex persona",
+  "description": "One persona as served by the API and the static JSON files. Hidden and removed items are not included.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "persona_id",
+    "slug",
+    "display_name",
+    "status",
+    "games",
+    "owner_verified",
+    "facets",
+    "accounts",
+    "socials",
+    "affiliations",
+    "external_ids",
+    "redirected_from",
+    "policy",
+    "seq",
+    "attribution"
+  ],
+  "properties": {
+    "persona_id": {
+      "$ref": "#/$defs/id_per",
+      "description": "Stable id. Store this, not the slug."
+    },
+    "slug": {
+      "$ref": "#/$defs/slug",
+      "description": "Short name for URLs. It does not change."
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "listed",
+        "historical"
+      ],
+      "description": "listed is active. historical is a persona that is no longer active but still shown."
+    },
+    "games": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "lol"
+        ]
+      }
+    },
+    "owner_verified": {
+      "description": "null until the persona has proved they own this entry.",
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "tier",
+            "since",
+            "reverify_due"
+          ],
+          "properties": {
+            "tier": {
+              "type": "string",
+              "enum": [
+                "E3",
+                "E4",
+                "E5"
+              ]
+            },
+            "since": {
+              "$ref": "#/$defs/datetime"
+            },
+            "reverify_due": {
+              "$ref": "#/$defs/date"
+            }
+          }
+        }
+      ]
+    },
+    "facets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/facet"
+      }
+    },
+    "accounts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/account"
+      }
+    },
+    "socials": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/social"
+      }
+    },
+    "affiliations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/affiliation"
+      }
+    },
+    "external_ids": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Ids of the same persona in other databases.",
+      "properties": {
+        "leaguepedia": {
+          "type": "string"
+        },
+        "liquipedia": {
+          "type": "string"
+        },
+        "wikidata": {
+          "type": "string",
+          "pattern": "^Q[0-9]+$"
+        }
+      }
+    },
+    "redirected_from": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/slug"
+      },
+      "description": "Old slugs that now point to this persona."
+    },
+    "policy": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+@[0-9]+$",
+      "description": "Name and version of the rules used to build this record."
+    },
+    "seq": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Change number at the time this record was built. Use it with the change feed."
+    },
+    "attribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "license",
+        "terms"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "const": "SummonerDex contributors, CC BY 4.0, https://summonerdex.gg/attribution"
+        },
+        "license": {
+          "type": "string",
+          "const": "CC-BY-4.0"
+        },
+        "terms": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "id_per": {
+      "type": "string",
+      "pattern": "^per_[0-9A-HJKMNP-TV-Z]{26}$"
+    },
+    "id_acc": {
+      "type": "string",
+      "pattern": "^acc_[0-9A-HJKMNP-TV-Z]{26}$"
+    },
+    "id_clm": {
+      "type": "string",
+      "pattern": "^clm_[0-9A-HJKMNP-TV-Z]{26}$"
+    },
+    "id_pub": {
+      "type": "string",
+      "pattern": "^pub_[0-9A-HJKMNP-TV-Z]{26}$"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{2,39}-[0-9a-hjkmnp-tv-z]{4}$"
+    },
+    "datetime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "evidence_tier": {
+      "type": "string",
+      "enum": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5",
+        "OR"
+      ],
+      "description": "How strong the evidence is. E0: someone said so. E1: shown on a public page. E2: seen on the persona's own stream. E3: the persona proved they own a social account. E4: E3 plus proof of the game account. E5: Riot Sign On. OR: official roster, used for affiliations."
+    },
+    "disclosure_basis": {
+      "type": "string",
+      "enum": [
+        "owner_verified",
+        "owner_declared",
+        "league_published",
+        "public_profile",
+        "broadcast_visible",
+        "none"
+      ],
+      "description": "Where the public tie between the persona and this item comes from. none means no public tie was recorded."
+    },
+    "review_status": {
+      "type": "string",
+      "enum": [
+        "approved",
+        "unreviewed",
+        "contested"
+      ],
+      "description": "unreviewed items came from a bulk publisher and have not been checked yet."
+    },
+    "freshness": {
+      "type": "string",
+      "enum": [
+        "fresh",
+        "stale_soft"
+      ],
+      "description": "stale_soft means not confirmed in the last 30 days. Accounts not confirmed in 90 days are left out."
+    },
+    "publishers": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/id_pub"
+      }
+    },
+    "account": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "account_id",
+        "primary",
+        "current",
+        "names",
+        "regions",
+        "last_confirmed",
+        "freshness",
+        "corroboration"
+      ],
+      "description": "One Riot account tied to the persona. The identity is account_id. Names and regions change; the arrays keep every value with dates.",
+      "properties": {
+        "account_id": {
+          "$ref": "#/$defs/id_acc",
+          "description": "Stable id for the account. Stays the same when the Riot ID or region changes."
+        },
+        "primary": {
+          "type": "boolean",
+          "description": "The persona's main account. At most one per persona."
+        },
+        "current": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "game_name",
+            "tag_line",
+            "name_key",
+            "region"
+          ],
+          "description": "The open name and region, copied from the arrays so the common case needs no scan.",
+          "properties": {
+            "game_name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "tag_line": {
+              "type": "string",
+              "minLength": 1
+            },
+            "name_key": {
+              "$ref": "#/$defs/name_key"
+            },
+            "region": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/$defs/region"
+                }
+              ]
+            }
+          }
+        },
+        "names": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/name_entry"
+          }
+        },
+        "regions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/region_entry"
+          }
+        },
+        "last_confirmed": {
+          "$ref": "#/$defs/datetime",
+          "description": "The last time any source confirmed the account still belongs to the persona."
+        },
+        "freshness": {
+          "$ref": "#/$defs/freshness"
+        },
+        "corroboration": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3,
+          "description": "How many independent sources agree the account belongs to the persona. Capped at 3."
+        }
+      }
+    },
+    "social": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "platform",
+        "url",
+        "evidence_tier",
+        "disclosure_basis",
+        "review_status",
+        "publishers",
+        "last_confirmed",
+        "claim_id"
+      ],
+      "properties": {
+        "platform": {
+          "type": "string",
+          "enum": [
+            "twitch",
+            "youtube",
+            "x",
+            "kick",
+            "soop",
+            "chzzk",
+            "discord",
+            "website"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "evidence_tier": {
+          "$ref": "#/$defs/evidence_tier"
+        },
+        "disclosure_basis": {
+          "$ref": "#/$defs/disclosure_basis"
+        },
+        "review_status": {
+          "$ref": "#/$defs/review_status"
+        },
+        "publishers": {
+          "$ref": "#/$defs/publishers"
+        },
+        "last_confirmed": {
+          "$ref": "#/$defs/datetime"
+        },
+        "claim_id": {
+          "$ref": "#/$defs/id_clm"
+        }
+      }
+    },
+    "affiliation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "team",
+        "league",
+        "role_class",
+        "valid_from",
+        "valid_to",
+        "evidence_tier",
+        "disclosure_basis",
+        "review_status",
+        "publishers",
+        "last_confirmed",
+        "claim_id"
+      ],
+      "properties": {
+        "team": {
+          "type": "string"
+        },
+        "league": {
+          "type": "string"
+        },
+        "role_class": {
+          "type": "string",
+          "enum": [
+            "player",
+            "substitute",
+            "coach",
+            "staff",
+            "content_creator"
+          ]
+        },
+        "valid_from": {
+          "$ref": "#/$defs/date"
+        },
+        "valid_to": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/date"
+            }
+          ]
+        },
+        "evidence_tier": {
+          "$ref": "#/$defs/evidence_tier"
+        },
+        "disclosure_basis": {
+          "$ref": "#/$defs/disclosure_basis"
+        },
+        "review_status": {
+          "$ref": "#/$defs/review_status"
+        },
+        "publishers": {
+          "$ref": "#/$defs/publishers"
+        },
+        "last_confirmed": {
+          "$ref": "#/$defs/datetime"
+        },
+        "claim_id": {
+          "$ref": "#/$defs/id_clm"
+        }
+      }
+    },
+    "facet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "facet",
+        "rubric",
+        "value",
+        "valid_until",
+        "basis_claims",
+        "computed_at"
+      ],
+      "description": "A label computed from the persona's claims. Apps filter on facets.",
+      "properties": {
+        "facet": {
+          "type": "string",
+          "enum": [
+            "pro",
+            "semi_pro",
+            "former_pro",
+            "streamer_declared",
+            "streamer_observed",
+            "editorial",
+            "community_notable"
+          ]
+        },
+        "rubric": {
+          "type": "string",
+          "pattern": "^[a-z_]+@[0-9]+$",
+          "description": "Name and version of the rule that produced this facet."
+        },
+        "value": {
+          "type": "boolean"
+        },
+        "league": {
+          "type": "string"
+        },
+        "team": {
+          "type": "string"
+        },
+        "role_class": {
+          "type": "string"
+        },
+        "valid_until": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/date"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "When the facet expires. null means it does not expire."
+        },
+        "basis_claims": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/id_clm"
+          },
+          "description": "The claims this facet is based on."
+        },
+        "computed_at": {
+          "$ref": "#/$defs/datetime"
+        }
+      }
+    },
+    "name_key": {
+      "type": "string",
+      "pattern": "^[^#]+#[^#]+$",
+      "description": "Normalized Riot ID for matching: Unicode NFC, full case folding, spaces and format characters removed. Made by the idfold package. A matching index only; the identity of an account is account_id."
+    },
+    "region": {
+      "type": "string",
+      "enum": [
+        "br1",
+        "eun1",
+        "euw1",
+        "jp1",
+        "kr",
+        "la1",
+        "la2",
+        "me1",
+        "na1",
+        "oc1",
+        "ru",
+        "sg2",
+        "tr1",
+        "tw2",
+        "vn2"
+      ]
+    },
+    "name_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "game_name",
+        "tag_line",
+        "name_key",
+        "from",
+        "to",
+        "evidence_tier",
+        "disclosure_basis",
+        "review_status",
+        "publishers",
+        "claim_ids"
+      ],
+      "description": "One name the account has had. Entries are append-only and ordered by from. The open entry (to is null) is the current name.",
+      "properties": {
+        "game_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tag_line": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name_key": {
+          "$ref": "#/$defs/name_key"
+        },
+        "from": {
+          "$ref": "#/$defs/datetime"
+        },
+        "to": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/datetime"
+            }
+          ],
+          "description": "When the account stopped using this name. null while current."
+        },
+        "evidence_tier": {
+          "$ref": "#/$defs/evidence_tier"
+        },
+        "disclosure_basis": {
+          "$ref": "#/$defs/disclosure_basis"
+        },
+        "review_status": {
+          "$ref": "#/$defs/review_status"
+        },
+        "publishers": {
+          "$ref": "#/$defs/publishers"
+        },
+        "claim_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/id_clm"
+          }
+        }
+      }
+    },
+    "region_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "region",
+        "from",
+        "to",
+        "publishers"
+      ],
+      "description": "One server the account has been on. Append-only. The open entry is the current region.",
+      "properties": {
+        "region": {
+          "$ref": "#/$defs/region"
+        },
+        "from": {
+          "$ref": "#/$defs/datetime"
+        },
+        "to": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/datetime"
+            }
+          ]
+        },
+        "publishers": {
+          "$ref": "#/$defs/publishers"
+        }
+      }
+    }
+  }
+}
